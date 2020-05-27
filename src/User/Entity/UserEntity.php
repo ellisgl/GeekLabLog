@@ -4,6 +4,9 @@ namespace App\User\Entity;
 use \DateTimeImmutable;
 use \DateTimeZone;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class UserEntity implements UserInterface
 {
@@ -38,6 +41,17 @@ class UserEntity implements UserInterface
 
         // Make 100% certain we are dealing with an UTC timezone DateTimeImmutable object.
         $this->created = DateTimeImmutable::createFromFormat('U', time(), new DateTimeZone('UTC'));
+    }
+
+    /**
+     * Validation stuffs.
+     *
+     * @param ClassMetadata $metadata
+     */
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addPropertyConstraints('userName', [new NotBlank()]);
+        $metadata->addPropertyConstraints('email', [new NotBlank(), new Email()]);
     }
 
     /**
