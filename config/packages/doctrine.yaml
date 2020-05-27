@@ -1,0 +1,26 @@
+doctrine:
+    dbal:
+        driver: 'pdo_mysql'
+        server_version: '5.7'
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+        url: '%env(resolve:DATABASE_URL)%'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App\User:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/User/Mapping'
+                prefix: 'App\User'
+                alias: App
+            App\Post:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Post/Mapping'
+                prefix: 'App\Post'
+                alias: App
