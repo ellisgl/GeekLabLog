@@ -11,14 +11,14 @@
     </indexes>
 
     <id name="id" type="guid">
-        <generator strategy="UUID"/>
+        <generator strategy="UUID" />
     </id>
     <field name="userName" column="userName" length="25" unique="true" />
     <field name="email" length="254" unique="true" />
     <field name="password" length="60" />
     <field name="roles" type="json" />
-    <field name="created" type="datetime_immutable" />
-    <field name="lastEdited" type="datetime_immutable" nullable="true" />
-    <field name="deleted" type="datetime_immutable" nullable="true" />
+    <field name="createdOn" type="datetime_immutable" />
+    <field name="lastEditedOn" type="datetime_immutable" nullable="true" />
+    <field name="deletedOn" type="datetime_immutable" nullable="true" />
 </entity>
 </doctrine-mapping>
