@@ -11,7 +11,11 @@
         <field name="path"/>
         <field name="fileName"/>
         <field name="title" length="180" nullable="true"/>
-        <field name="altMeta" length="180" nullable="true"/>
+        <field name="altMeta" length="180" nullable="true">
+            <options>
+                <option name="comment">Use for ALT tag.</option>
+            </options>
+        </field>
         <field name="description" nullable="true"/>
         <field name="createdOn" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
@@ -19,14 +23,10 @@
         <field name="lastEditedOn" type="datetime_immutable" nullable="true">
             <gedmo:timestampable on="update"/>
         </field>
-         <field name="deletedOn" type="datetime_immutable" nullable="true"/>
+        <field name="deletedOn" type="datetime_immutable" nullable="true"/>
 
-        <many-to-one field="postType" target-entity="App\Post\Entity\PostTypeEntity">
-            <join-column name="postType_id"/>
-        </many-to-one>
-        <many-to-one field="postCategory" target-entity="App\Post\Entity\PostCategoryEntity">
-            <join-column name="postCategory_id"/>
-        </many-to-one>
+        <one-to-many field="posts" target-entity="App\Post\Entity\PostEntity" mapped-by="blurbImage"/>
+
         <many-to-one field="author" target-entity="App\User\Entity\UserEntity" inversed-by="postImages">
             <join-column name="user_id"/>
         </many-to-one>

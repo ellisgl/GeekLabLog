@@ -54,6 +54,9 @@
         <many-to-one field="author" target-entity="App\User\Entity\UserEntity" inversed-by="posts">
             <join-column name="user_id"/>
         </many-to-one>
+        <many-to-one field="blurbImage" target-entity="App\Post\Entity\PostImageEntity" inversed-by="posts">
+            <join-column name="blurb_postImage_id" />
+        </many-to-one>
 
         <many-to-many field="postTags" inversed-by="posts" target-entity="App\Post\Entity\PostTag">
             <join-table name="posts_postTags">
@@ -66,13 +69,13 @@
             </join-table>
         </many-to-many>
 
-        <one-to-many field="postPages" target-entity="App\Post\Entity\PostPage" mapped-by="post">
+        <one-to-many field="postPages" target-entity="App\Post\Entity\PostPageEntity" mapped-by="post">
             <order-by>
                 <order-by-field name="position"/>
             </order-by>
         </one-to-many>
 
-        <one-to-many field="postComments" target-entity="App\Post\Entity\PostComment" mapped-by="post">
+        <one-to-many field="postComments" target-entity="App\Post\Entity\PostCommentEntity" mapped-by="post">
             <order-by>
                 <order-by-field name="createdOn"/>
             </order-by>
