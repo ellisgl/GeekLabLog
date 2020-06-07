@@ -21,6 +21,12 @@
         </field>
         <field name="deletedOn" type="datetime_immutable" nullable="true"/>
 
-        <one-to-many field="posts" target-entity="App\Post\Entity\Post" mapped-by="postCategory"/>
+        <one-to-many field="posts" target-entity="App\Post\Entity\Post" mapped-by="postCategory">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+                <cascade-refresh />
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

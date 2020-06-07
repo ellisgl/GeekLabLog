@@ -17,7 +17,7 @@
             </options>
         </id>
 
-        <field name="slug" unique="true">
+        <field name="slug" unique="true" nullable="true">
             <options>
                 <option name="comment">URN for the post, such as Science/1999/12/31/No_Y2K_Issues</option>
             </options>

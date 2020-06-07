@@ -1,8 +1,12 @@
 <?php
 namespace App\User\Entity;
 
+use App\Post\Entity\PostCommentEntity;
+use App\Post\Entity\PostEntity;
+use App\Post\Entity\PostImageEntity;
 use \DateTimeImmutable;
 use \DateTimeZone;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -34,6 +38,15 @@ class UserEntity implements UserInterface
     /** @var DateTimeImmutable|null $deletedOn */
     private $deletedOn;
 
+    /** @var PostEntity[]|ArrayCollection $posts */
+    private $posts;
+
+    /** @var PostCommentEntity[]|ArrayCollection $postComments */
+    private $postComments;
+
+    /** @var PostImageEntity[]|ArrayCollection $postImages */
+    private $postImages;
+
     public function __construct()
     {
         // Make sure we have at least have the ROLE_USER as a role for the user.
@@ -41,6 +54,10 @@ class UserEntity implements UserInterface
 
         // Make 100% certain we are dealing with an UTC timezone DateTimeImmutable object.
         $this->createdOn = DateTimeImmutable::createFromFormat('U', time(), new DateTimeZone('UTC'));
+
+        $this->posts = new ArrayCollection();
+        $this->postComments = new ArrayCollection();
+        $this->postImages = new ArrayCollection();
     }
 
     /**
@@ -248,4 +265,36 @@ class UserEntity implements UserInterface
         $this->deletedOn = $deletedOn;
         return $this;
     }
+
+    /**
+     * @return PostEntity[]|ArrayCollection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    // Add
+    // Remove
+
+    /**
+     * @return PostCommentEntity[]|ArrayCollection
+     */
+    public function getPostComments()
+    {
+        return $this->postComments;
+    }
+
+    // Add
+    // Remove
+
+    /**
+     * @return PostImageEntity[]|ArrayCollection
+     */
+    public function getPostImages()
+    {
+        return $this->postImages;
+    }
+    // Add
+    // Remove
 }

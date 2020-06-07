@@ -23,7 +23,13 @@
         <field name="deletedOn" type="datetime_immutable" nullable="true"/>
 
         <many-to-one field="parentCategory" target-entity="App\Post\Entity\PostCategory" inversed-by="childCategories"/>
-        <one-to-many field="childCategories" target-entity="App\Post\Entity\PostCategory" mapped-by="parentCategory"/>
+        <one-to-many field="childCategories" target-entity="App\Post\Entity\PostCategory" mapped-by="parentCategory">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+                <cascade-refresh />
+            </cascade>
+        </one-to-many>
 
         <one-to-many field="posts" target-entity="App\Post\Entity\Post" mapped-by="postCategory"/>
     </entity>
