@@ -13,6 +13,7 @@
     <id name="id" type="guid">
         <generator strategy="UUID" />
     </id>
+
     <field name="userName" column="userName" length="25" unique="true" />
     <field name="email" length="254" unique="true" />
     <field name="password" length="60" />
@@ -20,5 +21,13 @@
     <field name="createdOn" type="datetime_immutable" />
     <field name="lastEditedOn" type="datetime_immutable" nullable="true" />
     <field name="deletedOn" type="datetime_immutable" nullable="true" />
+
+    <one-to-many field="posts" target-entity="App\Post\Entity\PostEntity" mapped-by="author" />
+    <one-to-many field="postImages" target-entity="App\Post\Entity\PostImage" mapped-by="author" />
+    <one-to-many field="postComments" target-entity="App\Post\Entity\PostComment" mapped-by="author">
+        <order-by>
+            <order-by-field name="createdOn" />
+        </order-by>
+    </one-to-many>
 </entity>
 </doctrine-mapping>
