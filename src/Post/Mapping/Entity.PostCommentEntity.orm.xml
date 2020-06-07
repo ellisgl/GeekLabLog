@@ -1,24 +1,25 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                    http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+                    http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
     <entity name="App\Post\Entity\PostCommentEntity" table="postComments">
         <indexes>
-            <index columns="isSpamChecked, isSpam" />
-            <index columns="deletedOn" />
+            <index columns="isSpamChecked, isSpam"/>
+            <index columns="deletedOn"/>
         </indexes>
 
         <id name="id" type="bigint">
-            <generator />
+            <generator/>
             <options>
                 <option name="unsigned">1</option>
             </options>
         </id>
 
-        <field name="name" />
-        <field name="email" />
-        <field name="url" nullable="true" />
-        <field name="content" type="text" />
+        <field name="name"/>
+        <field name="email"/>
+        <field name="url" nullable="true"/>
+        <field name="content" type="text"/>
         <field name="isSpamChecked" type="boolean">
             <options>
                 <option name="default">0</option>
@@ -35,15 +36,17 @@
                 <option name="comment">https://stackoverflow.com/questions/6964143/storing-ipv6-addresses-in-mysql</option>
             </options>
         </field>
-        <field name="createdOn" type="datetime_immutable" />
-        <field name="deletedOn" type="datetime_immutable" nullable="true" />
+        <field name="createdOn" type="datetime_immutable">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="deletedOn" type="datetime_immutable" nullable="true"/>
 
         <many-to-one field="post" target-entity="App\Post\Entity\Post" inversed-by="postComments">
-            <join-column name="post_id" />
+            <join-column name="post_id"/>
         </many-to-one>
 
         <many-to-one field="author" target-entity="App\User\Entity\UserEntity" inversed-by="postComments">
-            <join-column name="post_id" />
+            <join-column name="post_id"/>
         </many-to-one>
     </entity>
 </doctrine-mapping>

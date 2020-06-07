@@ -1,20 +1,25 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                    http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+                    http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
     <entity name="App\Post\Entity\PostTagEntity" table="postTags">
         <id name="id" type="integer">
-            <generator />
+            <generator/>
             <options>
                 <option name="unsigned">1</option>
             </options>
         </id>
 
-        <field name="name" />
-        <field name="createdOn" type="datetime_immutable" />
-        <field name="lastEditedOn" type="datetime_immutable" nullable="true" />
-        <field name="deletedOn" type="datetime_immutable" nullable="true" />
+        <field name="name"/>
+        <field name="createdOn" type="datetime_immutable">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="lastEditedOn" type="datetime_immutable" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>
+        <field name="deletedOn" type="datetime_immutable" nullable="true"/>
 
-        <many-to-many field="posts" target-entity="App\Post\Entity\Post" mapped-by="postTags" />
+        <many-to-many field="posts" target-entity="App\Post\Entity\Post" mapped-by="postTags"/>
     </entity>
 </doctrine-mapping>

@@ -1,33 +1,38 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                    http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
-<entity name="App\User\Entity\UserEntity" table="users">
-    <indexes>
-        <index columns="userName" />
-        <index columns="email" />
-        <index columns="created" />
-        <index columns="deleted" />
-    </indexes>
+                    http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="App\User\Entity\UserEntity" table="users">
+        <indexes>
+            <index columns="userName"/>
+            <index columns="email"/>
+            <index columns="created"/>
+            <index columns="deleted"/>
+        </indexes>
 
-    <id name="id" type="guid">
-        <generator strategy="UUID" />
-    </id>
+        <id name="id" type="guid">
+            <generator strategy="UUID"/>
+        </id>
 
-    <field name="userName" column="userName" length="25" unique="true" />
-    <field name="email" length="254" unique="true" />
-    <field name="password" length="60" />
-    <field name="roles" type="json" />
-    <field name="createdOn" type="datetime_immutable" />
-    <field name="lastEditedOn" type="datetime_immutable" nullable="true" />
-    <field name="deletedOn" type="datetime_immutable" nullable="true" />
+        <field name="userName" column="userName" length="25" unique="true"/>
+        <field name="email" length="254" unique="true"/>
+        <field name="password" length="60"/>
+        <field name="roles" type="json"/>
+        <field name="createdOn" type="datetime_immutable">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="lastEditedOn" type="datetime_immutable" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>
+        <field name="deletedOn" type="datetime_immutable" nullable="true"/>
 
-    <one-to-many field="posts" target-entity="App\Post\Entity\PostEntity" mapped-by="author" />
-    <one-to-many field="postImages" target-entity="App\Post\Entity\PostImage" mapped-by="author" />
-    <one-to-many field="postComments" target-entity="App\Post\Entity\PostComment" mapped-by="author">
-        <order-by>
-            <order-by-field name="createdOn" />
-        </order-by>
-    </one-to-many>
-</entity>
+        <one-to-many field="posts" target-entity="App\Post\Entity\PostEntity" mapped-by="author"/>
+        <one-to-many field="postImages" target-entity="App\Post\Entity\PostImage" mapped-by="author"/>
+        <one-to-many field="postComments" target-entity="App\Post\Entity\PostComment" mapped-by="author">
+            <order-by>
+                <order-by-field name="createdOn"/>
+            </order-by>
+        </one-to-many>
+    </entity>
 </doctrine-mapping>
