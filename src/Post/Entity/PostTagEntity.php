@@ -123,20 +123,17 @@ class PostTagEntity
     }
 
     /**
-     * Remove tag from post.
-     *
      * @param PostEntity $post
      *
      * @return $this
      */
-    public function removePost(PostEntity $post): self
-    {
-        if ($this->posts->contains($post)) {
-            //....
+    public function addPost(PostEntity $post): self {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
         }
 
         return $this;
     }
 
-
+    // Not doing removePost for now.
 }
