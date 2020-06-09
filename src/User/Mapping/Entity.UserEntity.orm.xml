@@ -5,8 +5,6 @@
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
     <entity name="App\User\Entity\UserEntity" table="users">
         <indexes>
-            <index columns="userName"/>
-            <index columns="email"/>
             <index columns="created"/>
             <index columns="deleted"/>
         </indexes>
