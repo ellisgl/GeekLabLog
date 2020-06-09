@@ -5,8 +5,9 @@
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
     <entity name="App\Post\Entity\PostCommentEntity" table="postComments">
         <indexes>
-            <index columns="isSpamChecked, isSpam"/>
-            <index columns="deletedOn"/>
+            <index columns="isSpamChecked,isSpam"/>
+            <index columns="created"/>
+            <index columns="deleted"/>
         </indexes>
 
         <id name="id" type="bigint">
@@ -20,13 +21,13 @@
         <field name="email"/>
         <field name="url" nullable="true"/>
         <field name="content" type="text"/>
-        <field name="isSpamChecked" type="boolean">
+        <field name="isSpamChecked" column="isSpamChecked" type="boolean">
             <options>
                 <option name="default">0</option>
                 <option name="comment">Would also be useful in a cron job if needed, but will most likely be checked on comment submission.</option>
             </options>
         </field>
-        <field name="isSpam" type="boolean">
+        <field name="isSpam" column="isSpam" type="boolean">
             <options>
                 <option name="default">1</option>
             </options>
@@ -36,12 +37,12 @@
                 <option name="comment">https://stackoverflow.com/questions/6964143/storing-ipv6-addresses-in-mysql</option>
             </options>
         </field>
-        <field name="createdOn" type="datetime_immutable">
+        <field name="created" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
         </field>
-        <field name="deletedOn" type="datetime_immutable" nullable="true"/>
+        <field name="deleted" type="datetime_immutable" nullable="true"/>
 
-        <many-to-one field="post" target-entity="App\Post\Entity\Post" inversed-by="postComments">
+        <many-to-one field="post" target-entity="App\Post\Entity\PostEntity" inversed-by="postComments">
             <join-column name="post_id"/>
         </many-to-one>
 

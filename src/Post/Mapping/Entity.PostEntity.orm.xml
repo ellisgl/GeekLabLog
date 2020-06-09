@@ -7,7 +7,8 @@
         <indexes>
             <index columns="slug"/>
             <index columns="isPublished"/>
-            <index columns="publishedOn"/>
+            <index columns="published"/>
+            <index columns="deleted"/>
         </indexes>
 
         <id name="id" type="integer">
@@ -31,19 +32,19 @@
                 <option name="comment">URL to an external content source. Think of the 'Read More' link.</option>
             </options>
         </field>
-        <field name="createdOn" type="datetime_immutable">
+        <field name="created" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
         </field>
-        <field name="lastEditedOn" type="datetime_immutable" nullable="true">
+        <field name="updated" type="datetime_immutable" nullable="true">
             <gedmo:timestampable on="update"/>
         </field>
-        <field name="publishedOn" type="datetime_immutable" nullable="true">
-        <field name="isPublished" type="boolean">
+        <field name="published" type="datetime_immutable" nullable="true"/>
+        <field name="isPublished" column="isPublished" type="boolean">
             <options>
                 <option name="default">0</option>
             </options>
         </field>
-        <field name="deletedOn" type="datetime_immutable" nullable="true"/>
+        <field name="deleted" type="datetime_immutable" nullable="true"/>
 
         <many-to-one field="postType" target-entity="App\Post\Entity\PostTypeEntity" inversed-by="posts">
             <join-column name="postType_id"/>
@@ -58,7 +59,7 @@
             <join-column name="blurb_postImage_id" />
         </many-to-one>
 
-        <many-to-many field="postTags" inversed-by="posts" target-entity="App\Post\Entity\PostTag">
+        <many-to-many field="postTags" inversed-by="posts" target-entity="App\Post\Entity\PostTagEntity">
             <join-table name="posts_postTags">
                 <join-columns>
                     <join-column name="post_id"/>

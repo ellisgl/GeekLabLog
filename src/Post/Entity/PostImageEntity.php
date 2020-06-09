@@ -2,6 +2,7 @@
 
 namespace App\Post\Entity;
 
+use App\User\Entity\UserEntity;
 use \DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -22,17 +23,23 @@ class PostImageEntity
     /** @var string|null $altMeta */
     private $altMeta;
 
-    /** @var DateTimeImmutable $createdOn */
-    private $createdOn;
+    /** @var string|null $description */
+    private $description;
 
-    /** @var DateTimeImmutable|null $lastEditedOn */
-    private $lastEditedOn;
+    /** @var DateTimeImmutable $created */
+    private $created;
+
+    /** @var DateTimeImmutable|null $updated */
+    private $updated;
 
     /** @var DateTimeImmutable|null */
-    private $deletedOn;
+    private $deleted;
 
     /** @var PostEntity[]|ArrayCollection $posts */
     private $posts;
+
+    /** @var UserEntity $author */
+    private $author;
 
     public function __construct()
     {
@@ -124,51 +131,78 @@ class PostImageEntity
     }
 
     /**
-     * @return DateTimeImmutable
+     * @return string|null
      */
-    public function getCreatedOn(): DateTimeImmutable
+    public function getDescription(): ?string
     {
-        return $this->createdOn;
+        return $this->description;
     }
 
     /**
-     * @param DateTimeImmutable $createdOn
+     * @param string|null $description
      *
      * @return $this
      */
-    public function setCreatedOn(DateTimeImmutable $createdOn): self
+    public function setDescription(?string $description): self
     {
-        $this->createdOn = $createdOn;
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getCreated(): DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param DateTimeImmutable $created
+     *
+     * @return $this
+     */
+    public function setCreated(DateTimeImmutable $created): self
+    {
+        $this->created = $created;
         return $this;
     }
 
     /**
      * @return DateTimeImmutable|null
      */
-    public function getLastEditedOn(): ?DateTimeImmutable
+    public function getUpdated(): ?DateTimeImmutable
     {
-        return $this->lastEditedOn;
+        return $this->updated;
     }
 
     /**
-     * @param DateTimeImmutable|null $lastEditedOn
+     * @param DateTimeImmutable|null $updated
      *
      * @return $this
      */
-    public function setLastEditedOn(?DateTimeImmutable $lastEditedOn): self
+    public function setUpdated(?DateTimeImmutable $updated): self
     {
-        $this->lastEditedOn = $lastEditedOn;
+        $this->updated = $updated;
         return $this;
     }
 
     /**
-     * @param DateTimeImmutable|null $deletedOn
+     * @return DateTimeImmutable|null
+     */
+    public function getDeleted(): ?DateTimeImmutable
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param DateTimeImmutable|null $deleted
      *
      * @return $this
      */
-    public function setDeletedOn(?DateTimeImmutable $deletedOn): self
+    public function setDeleted(?DateTimeImmutable $deleted): self
     {
-        $this->deletedOn = $deletedOn;
+        $this->deleted = $deleted;
         return $this;
     }
 
@@ -207,6 +241,25 @@ class PostImageEntity
             $post->setBlurbImage(null);
         }
 
+        return $this;
+    }
+
+    /**
+     * @return UserEntity
+     */
+    public function getAuthor(): UserEntity
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param UserEntity $author
+     *
+     * @return $this
+     */
+    public function setAuthor(UserEntity $author): self
+    {
+        $this->author = $author;
         return $this;
     }
 }

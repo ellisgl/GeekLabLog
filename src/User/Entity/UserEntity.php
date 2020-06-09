@@ -29,14 +29,14 @@ class UserEntity implements UserInterface
     /** @var array $roles */
     private $roles = [];
 
-    /** @var DateTimeImmutable $createdOn */
-    private $createdOn;
+    /** @var DateTimeImmutable $created */
+    private $created;
 
-    /** @var DateTimeImmutable|null $lastEditedOn */
-    private $lastEditedOn;
+    /** @var DateTimeImmutable|null $updated */
+    private $updated;
 
-    /** @var DateTimeImmutable|null $deletedOn */
-    private $deletedOn;
+    /** @var DateTimeImmutable|null $deleted */
+    private $deleted;
 
     /** @var PostEntity[]|ArrayCollection $posts */
     private $posts;
@@ -53,7 +53,7 @@ class UserEntity implements UserInterface
         $this->roles[] = 'ROLE_USER';
 
         // Make 100% certain we are dealing with an UTC timezone DateTimeImmutable object.
-        $this->createdOn = DateTimeImmutable::createFromFormat('U', time(), new DateTimeZone('UTC'));
+        $this->created = DateTimeImmutable::createFromFormat('U', time(), new DateTimeZone('UTC'));
 
         $this->posts = new ArrayCollection();
         $this->postComments = new ArrayCollection();
@@ -212,57 +212,57 @@ class UserEntity implements UserInterface
     /**
      * @return DateTimeImmutable
      */
-    public function getCreatedOn(): DateTimeImmutable
+    public function getCreated(): DateTimeImmutable
     {
-        return $this->createdOn;
+        return $this->created;
     }
 
     /**
-     * @param DateTimeImmutable $createdOn
+     * @param DateTimeImmutable $created
      *
      * @return $this
      */
-    public function setCreatedOn(DateTimeImmutable $createdOn): self
+    public function setCreated(DateTimeImmutable $created): self
     {
-        $this->createdOn = $createdOn;
+        $this->created = $created;
         return $this;
     }
 
     /**
      * @return DateTimeImmutable|null
      */
-    public function getLastEditedOn(): ?DateTimeImmutable
+    public function getUpdated(): ?DateTimeImmutable
     {
-        return $this->lastEditedOn;
+        return $this->updated;
     }
 
     /**
-     * @param DateTimeImmutable|null $lastEditedOn
+     * @param DateTimeImmutable|null $updated
      *
      * @return $this
      */
-    public function setLastEditedOn(?DateTimeImmutable $lastEditedOn): self
+    public function setUpdated(?DateTimeImmutable $updated): self
     {
-        $this->lastEditedOn = $lastEditedOn;
+        $this->updated = $updated;
         return $this;
     }
 
     /**
      * @return DateTimeImmutable|null
      */
-    public function getDeletedOn(): ?DateTimeImmutable
+    public function getDeleted(): ?DateTimeImmutable
     {
-        return $this->deletedOn;
+        return $this->deleted;
     }
 
     /**
-     * @param DateTimeImmutable|null $deletedOn
+     * @param DateTimeImmutable|null $deleted
      *
      * @return $this
      */
-    public function setDeletedOn(?DateTimeImmutable $deletedOn): self
+    public function setDeleted(?DateTimeImmutable $deleted): self
     {
-        $this->deletedOn = $deletedOn;
+        $this->deleted = $deleted;
         return $this;
     }
 

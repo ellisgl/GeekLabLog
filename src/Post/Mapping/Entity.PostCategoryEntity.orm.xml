@@ -4,6 +4,10 @@
                     http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
     <entity name="App\Post\Entity\PostCategoryEntity" table="postCategories">
+        <indexes>
+            <index columns="created" />
+            <index columns="deleted"/>
+        </indexes>
         <id name="id" type="integer">
             <generator/>
             <options>
@@ -14,16 +18,16 @@
         <field name="name"/>
         <field name="description" nullable="true"/>
 
-        <field name="createdOn" type="datetime_immutable">
+        <field name="created" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
         </field>
-        <field name="lastEditedOn" type="datetime_immutable" nullable="true">
+        <field name="updated" type="datetime_immutable" nullable="true">
             <gedmo:timestampable on="update"/>
         </field>
-        <field name="deletedOn" type="datetime_immutable" nullable="true"/>
+        <field name="deleted" type="datetime_immutable" nullable="true"/>
 
-        <many-to-one field="parentCategory" target-entity="App\Post\Entity\PostCategory" inversed-by="childCategories"/>
-        <one-to-many field="childCategories" target-entity="App\Post\Entity\PostCategory" mapped-by="parentCategory">
+        <many-to-one field="parentCategory" target-entity="App\Post\Entity\PostCategoryEntity" inversed-by="childCategories"/>
+        <one-to-many field="childCategories" target-entity="App\Post\Entity\PostCategoryEntity" mapped-by="parentCategory">
             <cascade>
                 <cascade-persist />
                 <cascade-remove />
@@ -31,6 +35,6 @@
             </cascade>
         </one-to-many>
 
-        <one-to-many field="posts" target-entity="App\Post\Entity\Post" mapped-by="postCategory"/>
+        <one-to-many field="posts" target-entity="App\Post\Entity\PostEntity" mapped-by="postCategory"/>
     </entity>
 </doctrine-mapping>

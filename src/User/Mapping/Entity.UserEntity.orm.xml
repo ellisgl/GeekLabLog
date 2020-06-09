@@ -19,17 +19,17 @@
         <field name="email" length="254" unique="true"/>
         <field name="password" length="60"/>
         <field name="roles" type="json"/>
-        <field name="createdOn" type="datetime_immutable">
+        <field name="created" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
         </field>
-        <field name="lastEditedOn" type="datetime_immutable" nullable="true">
+        <field name="updated" type="datetime_immutable" nullable="true">
             <gedmo:timestampable on="update"/>
         </field>
-        <field name="deletedOn" type="datetime_immutable" nullable="true"/>
+        <field name="deleted" type="datetime_immutable" nullable="true"/>
 
         <one-to-many field="posts" target-entity="App\Post\Entity\PostEntity" mapped-by="author"/>
-        <one-to-many field="postImages" target-entity="App\Post\Entity\PostImage" mapped-by="author"/>
-        <one-to-many field="postComments" target-entity="App\Post\Entity\PostComment" mapped-by="author">
+        <one-to-many field="postImages" target-entity="App\Post\Entity\PostImageEntity" mapped-by="author"/>
+        <one-to-many field="postComments" target-entity="App\Post\Entity\PostCommentEntity" mapped-by="author">
             <order-by>
                 <order-by-field name="createdOn"/>
             </order-by>
