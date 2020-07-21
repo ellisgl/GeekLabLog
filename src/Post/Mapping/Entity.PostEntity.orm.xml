@@ -78,7 +78,7 @@
 
         <one-to-many field="postComments" target-entity="App\Post\Entity\PostCommentEntity" mapped-by="post">
             <order-by>
-                <order-by-field name="createdOn"/>
+                <order-by-field name="created"/>
             </order-by>
         </one-to-many>
     </entity>

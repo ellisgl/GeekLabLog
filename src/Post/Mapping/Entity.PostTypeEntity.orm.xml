@@ -26,7 +26,7 @@
         </field>
         <field name="deleted" type="datetime_immutable" nullable="true"/>
 
-        <one-to-many field="posts" target-entity="App\Post\Entity\PostEntity" mapped-by="postCategory">
+        <one-to-many field="posts" target-entity="App\Post\Entity\PostEntity" mapped-by="postType">
             <cascade>
                 <cascade-persist />
                 <cascade-remove />
