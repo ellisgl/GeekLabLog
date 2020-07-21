@@ -29,7 +29,7 @@
         <one-to-many field="postImages" target-entity="App\Post\Entity\PostImageEntity" mapped-by="author"/>
         <one-to-many field="postComments" target-entity="App\Post\Entity\PostCommentEntity" mapped-by="author">
             <order-by>
-                <order-by-field name="createdOn"/>
+                <order-by-field name="created"/>
             </order-by>
         </one-to-many>
     </entity>
